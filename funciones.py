@@ -74,12 +74,12 @@ def mostrar_estadisticas(lista_inventario):
     total_unidades_fisicas =0
     
     menuEstadisticas = """
-        ---Panel de estadisticas---
-        
-        1. ---> Total Inventario
-        2. ---> Total productos registrados
+---Panel de estadisticas---
 
-        """       
+1. ---> Total Inventario
+2. ---> Total productos registrados
+
+"""       
         
     print(menuEstadisticas)
         
@@ -103,6 +103,7 @@ def mostrar_estadisticas(lista_inventario):
                     total_unidades_fisicas += totalcantidad
             
             print(f"\nEl total de productos registrados es de: {total_unidades_fisicas}")
+            print(f"\nLa cantidad de tipos de productos es: {len(lista_inventario)}")
         
     else:
             print("OPCIÓN NO VALIDA")
