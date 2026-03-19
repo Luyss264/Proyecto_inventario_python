@@ -1,4 +1,4 @@
-from funciones import inventario
+from funciones import *
 
 
 menuPrincipal = """
@@ -25,8 +25,19 @@ while opcion != "4":
     opcion = input("Ingrese el número de la opción que desea: ")
     
     if opcion == "1":
-        inventario(lista_inventario, productos)
+        
+        agregar_producto(lista_inventario, productos)
     
     elif opcion == "2":
         
-        print(lista_inventario)
+        mostrar_inventario(lista_inventario)
+    
+    elif opcion == "3":
+        
+        mostrar_estadisticas(lista_inventario)
+    
+    elif opcion == "4":
+        print("Adiós")
+        
+    else:
+        print("OPCIÓN NO VALIDA")
