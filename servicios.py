@@ -1,9 +1,12 @@
 import os
 
+def limpiar_pantalla():
+    print("\033[H\033[J", end="")
+    
 
 def menu():
     
-    os.system('clear')
+    limpiar_pantalla()
         
     menuPrincipal = """
     ----------BIENVENIDO AL SISTEMA-----------
@@ -24,7 +27,7 @@ def menu():
 #se define la función para agregar producto
 def agregar_producto(lista_inventario, productos):
     
-    os.system('clear')
+    limpiar_pantalla()
     
     print("\n--Agrega un producto--\n")
         
@@ -76,7 +79,7 @@ def agregar_producto(lista_inventario, productos):
 
 def mostrar_inventario(lista_inventario):
     
-    os.system('clear')
+    limpiar_pantalla()
     # Verifica si hay productos y los recorre para imprimir sus datos
     if len(lista_inventario) == 0:
         print("\nAún no hay productos en el inventario")
@@ -89,7 +92,7 @@ def mostrar_inventario(lista_inventario):
                 
 def mostrar_estadisticas(lista_inventario):
     
-    os.system('clear')
+    limpiar_pantalla()
     
     total_cantidad_por_precio = 0
     total_unidades_fisicas = 0
@@ -123,9 +126,10 @@ def mostrar_estadisticas(lista_inventario):
         
 def buscar_producto(lista_inventario):
             
-    os.system('clear')
+    limpiar_pantalla()
     
     search_input = input("\nIngrese el nombre del producto que desea consultar: ")
+    encontrado = False
     
     for item in lista_inventario:
         for name, datos in list(item.items()):
@@ -136,87 +140,95 @@ def buscar_producto(lista_inventario):
                 print(f"\nNombre del producto es {name}")
                 print(f"el precio de {name} es: ${datos['precio']}")
                 print(f"y la cantidad es de: {datos['cantidad']}")
+                encontrado = True
+                break
             
-            else:
-                print("---El producto no existe---")
+    if encontrado == False:
+        print("\n---El producto no existe---")
     
     input("\n---Presione cualquier tecla para continuar---")
     
 
 def actualizar_producto(lista_inventario):
             
-            os.system('clear')
-    
-            search_input = input("\nIngrese el nombre del producto que desea consultar: ")
+    limpiar_pantalla()
+    encontrado = False
+    search_input = input("\nIngrese el nombre del producto que desea consultar: ")
 
-            for item in lista_inventario:
-                for name, datos in list(item.items()):
+    for item in lista_inventario:
+        for name, datos in list(item.items()):
+            
+            if name == search_input.replace(" ","").lower():
+                
+                encontrado = True
+                
+                while True:
                     
-                    if name == search_input.replace(" ","").lower():
-                        
+                    try:
+                        peticion = input("\nDesea actualizar datos? Si/No: ").lower()
+                        break
+                    except:
+                        print("\nDato invalido")
+                        continue
+                    
+                if peticion == "si":
                         while True:
-                            
                             try:
-                                peticion = input("\nDesea actualizar datos? Si/No: ").lower()
-                                break
+                                datos['precio'] = float(input("\nIngrese el nuevo precio: "))
                             except:
                                 print("\nDato invalido")
                                 continue
-                            
-                        if peticion == "si":
-                                while True:
-                                    try:
-                                        datos['precio'] = float(input("\nIngrese el nuevo precio: "))
-                                    except:
-                                        print("\nDato invalido")
-                                        continue
-                                    if datos['precio'] < 0:
-                                        print("\nNo puede valer menos que 0")
-                                        continue
-                                    else:
-                                        print("\nPrecio actualizado")
-                                        break
+                            if datos['precio'] < 0:
+                                print("\nNo puede valer menos que 0")
+                                continue
+                            else:
+                                print("\nPrecio actualizado")
+                                break
 
-                                while True:
-                                    try:
-                                        datos['cantidad'] = int(input("\nIngrese la nueva cantidad: "))
-                                    except:
-                                        print("\nDato invalido")
-                                        continue
-                                    if datos['precio'] < 0:
-                                        print("\nNo puede haber menos que 0")
-                                        continue
-                                    else:
-                                        print("\ncantidad actualizada")
-                                        break
-                            
-                        elif peticion == "no":
-                            break
-                                
-                        else:
-                            print("\nIngrese un dato valido por favor")
-                            continue
+                        while True:
+                            try:
+                                datos['cantidad'] = int(input("\nIngrese la nueva cantidad: "))
+                            except:
+                                print("\nDato invalido")
+                                continue
+                            if datos['precio'] < 0:
+                                print("\nNo puede haber menos que 0")
+                                continue
+                            else:
+                                print("\ncantidad actualizada")
+                                break
                     
-                    else:
-                        print("\n---El producto no existe---")
-
-            input("\n---Presione cualquier tecla para continuar---")
+                elif peticion == "no":
+                    break
+                        
+                else:
+                    print("\nIngrese un dato valido por favor")
+                    continue
             
+    if encontrado == False:
+        print("\n---El producto no existe---")    
+
+    input("\n---Presione cualquier tecla para continuar---")
+    
 def eliminar_producto(lista_inventario):
             
-            os.system('clear')
+    limpiar_pantalla()
+    encontrado = False
+    search_input = input("\nIngrese el nombre del producto que desea consultar: ").lower()
+
+    for item in lista_inventario:
+
+        for nombre in item.keys():    
     
-            search_input = input("\nIngrese el nombre del producto que desea consultar: ").lower()
+            if nombre == search_input:
 
-            for item in lista_inventario:
+                lista_inventario.remove(item)
+                encontrado = True
+                print(f"\n--- Producto '{nombre}' eliminado ---")
+                break
+    
+    if encontrado == False:
+        print("\n---El producto no existe---")
 
-                for nombre in item.keys():    
-            
-                    if nombre == search_input:
-
-                        lista_inventario.remove(item)
-                        print(f"\n--- Producto '{nombre}' eliminado ---")
-
-
-            input("\n---Presione cualquier tecla para continuar---")
-            
+    input("\n---Presione cualquier tecla para continuar---")
+    
