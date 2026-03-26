@@ -30,7 +30,7 @@ def agregar_producto(lista_inventario, productos):
         
     # Validación del nombre: que no sea solo números
     while True:
-        nombre_producto = input("Ingrese el nombre del producto: ")
+        nombre_producto = input("Ingrese el nombre del producto: ").lower()
         if not nombre_producto.isdigit():
             break
         else:
@@ -40,8 +40,9 @@ def agregar_producto(lista_inventario, productos):
     while True:        
         try:    
             precio_producto = int(input("Ingrese el precio del producto: "))
-            if precio_producto >= 0: break
-            print("Error: El precio no puede ser negativo.")
+            if precio_producto >= 0: 
+                break
+
         except:
             print("Error: Ingrese un precio válido.")
 
@@ -49,8 +50,8 @@ def agregar_producto(lista_inventario, productos):
     while True:
         try:       
             cantidad_producto = int(input("Ingrese la cantidad del producto: "))
-            if cantidad_producto >= 0: break
-            print("Error: La cantidad no puede ser negativa.")
+            if cantidad_producto >= 0: 
+                break
         except:
             print("Error: Ingrese una cantidad válida.")
 
@@ -81,7 +82,7 @@ def mostrar_inventario(lista_inventario):
         print("\nAún no hay productos en el inventario")
     else:
         for item in lista_inventario:
-            for nombre, datos in item.items():
+            for nombre, datos in list(item.items()):
                 print(f"Producto:{nombre} | precio:{datos['precio']} | cantidad:{datos['cantidad']}")
 
     input("\n---Presione cualquier tecla para continuar---")
@@ -101,14 +102,14 @@ def mostrar_estadisticas(lista_inventario):
     # Opción 1: Calcula el valor monetario total del inventario
     if opcionEstadisticas == "1":
         for item in lista_inventario:
-            for nombre, datos in item.items():
-                total_cantidad_por_precio += (datos['cantidad'] * datos['precio'])
+            for nombre, datos in list(item.items()):
+                total_cantidad_por_precio = total_cantidad_por_precio + (datos['cantidad'] * datos['precio'])
         print(f"\nEl total monetario es de: ${total_cantidad_por_precio}")
         
     # Opción 2: Calcula unidades totales y variedad de productos
     elif opcionEstadisticas == "2":
         for item in lista_inventario:
-            for nombre, datos in item.items():
+            for nombre, datos in list(item.items()):
                 total_unidades_fisicas += datos['cantidad']
         print(f"\nTotal de unidades físicas: {total_unidades_fisicas}")
         print(f"Total de tipos de productos: {len(lista_inventario)}")
@@ -120,44 +121,44 @@ def mostrar_estadisticas(lista_inventario):
     input("\n---Presione cualquier tecla para continuar---")
         
         
-def searcher_product(lista_inventario):
+def buscar_producto(lista_inventario):
             
     os.system('clear')
     
     search_input = input("\nIngrese el nombre del producto que desea consultar: ")
     
     for item in lista_inventario:
-        for name, datos in item.items():
+        for name, datos in list(item.items()):
             
             if name == search_input.replace(" ","").lower():
                 
                 print("\n----Producto encontrado----")
-                print(f"\nNnombre del producto es {name}")
+                print(f"\nNombre del producto es {name}")
                 print(f"el precio de {name} es: ${datos['precio']}")
                 print(f"y la cantidad es de: {datos['cantidad']}")
             
             else:
-                print("---El producto no existe")
+                print("---El producto no existe---")
     
     input("\n---Presione cualquier tecla para continuar---")
     
 
-def data_changer(lista_inventario):
+def actualizar_producto(lista_inventario):
             
             os.system('clear')
     
             search_input = input("\nIngrese el nombre del producto que desea consultar: ")
 
             for item in lista_inventario:
-                for name, datos in item.items():
+                for name, datos in list(item.items()):
                     
                     if name == search_input.replace(" ","").lower():
                         
                         peticion = input("Desea actualizar datos? Si/No: ").lower()
                         
                         if peticion == "si":
-                            datos['precio'] = input("Ingrese el nuevo precio: ")
-                            datos['cantidad'] = input("Ingrese la nueva cantidad: ")
+                            datos['precio'] = float(input("Ingrese el nuevo precio: "))
+                            datos['cantidad'] = int(input("Ingrese la nueva cantidad: "))
                         
                         elif peticion == "no":
                             break
@@ -167,24 +168,24 @@ def data_changer(lista_inventario):
                             continue
                     
                     else:
-                        print("---El producto no existe")
+                        print("---El producto no existe---")
 
             input("\n---Presione cualquier tecla para continuar---")
             
-def delete_product(lista_inventario):
+def eliminar_producto(lista_inventario):
             
             os.system('clear')
     
-            search_input = input("\nIngrese el nombre del producto que desea consultar: ")
+            search_input = input("\nIngrese el nombre del producto que desea consultar: ").lower()
 
             for item in lista_inventario:
-   
-                nombre_en_lista = list(item.keys())[0]
+
+                for nombre in item.keys():    
             
-            
-                if nombre_en_lista.lower() == search_input:
-                    lista_inventario.remove(item)
-                    print(f"\n--- Producto '{nombre_en_lista}' eliminado ---")
+                    if nombre == search_input:
+
+                        lista_inventario.remove(item)
+                        print(f"\n--- Producto '{nombre}' eliminado ---")
 
 
             input("\n---Presione cualquier tecla para continuar---")

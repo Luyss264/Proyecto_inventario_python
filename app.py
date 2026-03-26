@@ -1,4 +1,4 @@
-from funciones import * # Importa las funciones del archivo externo
+from servicios import * # Importa las funciones del archivo externo
 
 option = ""
 
@@ -26,15 +26,15 @@ while option != "7":
         mostrar_estadisticas(lista_inventario)
         
     elif option == "4":
-        searcher_product(lista_inventario)
+        buscar_producto(lista_inventario)
         
     elif option == "5":
         
-        data_changer(lista_inventario)
+        actualizar_producto(lista_inventario)
         
     elif option == "6":
         
-        delete_product(lista_inventario)
+        eliminar_producto(lista_inventario)
     
     # Finaliza la ejecución
     elif option == "7":
@@ -43,3 +43,5 @@ while option != "7":
     # Manejo de entradas incorrectas
     else:
         print("OPCIÓN NO VALIDA")
+        
+    print(lista_inventario)
