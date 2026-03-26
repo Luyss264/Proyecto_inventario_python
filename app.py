@@ -8,7 +8,7 @@ productos = {}
 
 # Bucle principal para mantener el programa en ejecución
 while option != "7":
-    
+    #función para desplegar el menú
     menu()
     
     option = input("Ingrese el número de la opción que desea: ")
@@ -24,14 +24,17 @@ while option != "7":
     # Llama a la función para ver totales y cálculos
     elif option == "3":
         mostrar_estadisticas(lista_inventario)
-        
+
+    #llama la función para buscar un producto    
     elif option == "4":
         buscar_producto(lista_inventario)
-        
+    
+    #llama la función para actualizar un producto
     elif option == "5":
         
         actualizar_producto(lista_inventario)
-        
+
+    #llama la función para eliminar un producto    
     elif option == "6":
         
         eliminar_producto(lista_inventario)
