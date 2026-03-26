@@ -38,10 +38,9 @@ while option != "7":
     
     # Finaliza la ejecución
     elif option == "7":
-        print("Adiós")
+        print("\nAdiós")
         
     # Manejo de entradas incorrectas
     else:
-        print("OPCIÓN NO VALIDA")
+        print("\nOPCIÓN NO VALIDA")
         
-    print(lista_inventario)

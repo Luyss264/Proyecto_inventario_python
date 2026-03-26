@@ -154,21 +154,51 @@ def actualizar_producto(lista_inventario):
                     
                     if name == search_input.replace(" ","").lower():
                         
-                        peticion = input("Desea actualizar datos? Si/No: ").lower()
-                        
+                        while True:
+                            
+                            try:
+                                peticion = input("\nDesea actualizar datos? Si/No: ").lower()
+                                break
+                            except:
+                                print("\nDato invalido")
+                                continue
+                            
                         if peticion == "si":
-                            datos['precio'] = float(input("Ingrese el nuevo precio: "))
-                            datos['cantidad'] = int(input("Ingrese la nueva cantidad: "))
-                        
+                                while True:
+                                    try:
+                                        datos['precio'] = float(input("\nIngrese el nuevo precio: "))
+                                    except:
+                                        print("\nDato invalido")
+                                        continue
+                                    if datos['precio'] < 0:
+                                        print("\nNo puede valer menos que 0")
+                                        continue
+                                    else:
+                                        print("\nPrecio actualizado")
+                                        break
+
+                                while True:
+                                    try:
+                                        datos['cantidad'] = int(input("\nIngrese la nueva cantidad: "))
+                                    except:
+                                        print("\nDato invalido")
+                                        continue
+                                    if datos['precio'] < 0:
+                                        print("\nNo puede haber menos que 0")
+                                        continue
+                                    else:
+                                        print("\ncantidad actualizada")
+                                        break
+                            
                         elif peticion == "no":
                             break
-                            
+                                
                         else:
-                            print("Ingrese un dato valido por favor")
+                            print("\nIngrese un dato valido por favor")
                             continue
                     
                     else:
-                        print("---El producto no existe---")
+                        print("\n---El producto no existe---")
 
             input("\n---Presione cualquier tecla para continuar---")
             
