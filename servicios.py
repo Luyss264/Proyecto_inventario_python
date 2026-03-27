@@ -91,14 +91,14 @@ def agregar_producto(lista_inventario, productos):
     return lista_inventario
     
 def guardar_csv(lista_inventario):
-
-    with open(DATA_CSV, 'w', newline='', encoding='utf-8') as f:
-        campos =['nombre', 'precio', 'cantidad']
-        write = csv.DictWriter(f, fieldnames=campos)
-        write.writeheader()
+#esto es como crear un excel con sus titulos en cada fila
+    with open(DATA_CSV, 'w', newline='', encoding='utf-8') as f: 
+        campos =['nombre', 'precio', 'cantidad'] 
+        write = csv.DictWriter(f, fieldnames=campos)#aqui se crean los campos, los titulos, ponemos dictwriter para escribirlo
+        write.writeheader() #aqui lo definimos como los titulos
         for i in lista_inventario:
-                var = {'nombre': i['nombre'], 'precio': i['precio'], 'cantidad': i['cantidad']}
-                write.writerow(var)
+                var = {'nombre': i['nombre'], 'precio': i['precio'], 'cantidad': i['cantidad']} 
+                write.writerow(var) #aqui definimos que esto se escribirá en la fila
 
 
 
