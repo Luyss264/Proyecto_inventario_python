@@ -24,7 +24,9 @@ def menu():
     4. -----> Buscar.
     5. -----> Actualizar.
     6. -----> Eliminar.
-    7. -----> Salir.
+    7. -----> Guardar CSV.
+    8. -----> Cargar CSV.
+    9. -----> Salir.
     """
     
     print(menuPrincipal)
@@ -40,15 +42,22 @@ def agregar_producto(lista_inventario, productos):
     while True:
         nombre_producto = input("Ingrese el nombre del producto: ").lower()
 
+       # Primero validamos si ya existe en la lista
+        existe = False
         for item in lista_inventario:
              if nombre_producto == item['nombre']:
-                  print('\nEste producto ya existe')
-                  continue
-             
-        if not nombre_producto.isdigit():
+                  print('\nEste producto ya existe. Intente con otro nombre.')
+                  existe = True
+                  break # Sale del for
+        
+        if existe:
+            continue # Si existe, vuelve al inicio del while para pedir el nombre otra vez
+
+        # Validación del nombre: que no sea solo números
+        if not nombre_producto.isdigit() and nombre_producto != "":
             break
         else:
-            print("\nError: El nombre del producto no puede ser un número.")
+            print("\nError: El nombre del producto no puede estar vacío ni ser solo un número.")
         
     # Validación del precio: que sea un entero positivo
     while True:        
@@ -79,8 +88,6 @@ def agregar_producto(lista_inventario, productos):
     # Agregar a la lista de inventario y confirmar
     lista_inventario.append(productos)
     print("\n--Producto agregado--")
-    
-    guardar_csv(lista_inventario)
 
     # Cálculo y muestra del resumen del producto
     costo_total = precio_producto * cantidad_producto
@@ -97,11 +104,22 @@ def guardar_csv(lista_inventario):
         write = csv.DictWriter(f, fieldnames=campos)#aqui se crean los campos, los titulos, ponemos dictwriter para escribirlo
         write.writeheader() #aqui lo definimos como los titulos
         for i in lista_inventario:
-                var = {'nombre': i['nombre'], 'precio': i['precio'], 'cantidad': i['cantidad']} 
-                write.writerow(var) #aqui definimos que esto se escribirá en la fila
+                write.writerow(i) #aqui definimos que esto se escribirá en la fila
+    print("\n---Archivo guardado---")
+    
+    input("\n---Presione cualquier tecla para continuar---")
 
-
-
+def cargar_csv(lista_inventario):
+    with open(DATA_CSV, 'r', newline='', encoding='utf-8') as f: 
+        read = csv.DictReader(f) #aqui se lee el csv
+        for i in read:
+            i['nombre'] = i['nombre'].lower() #aqui se convierte el nombre a minuscula
+            i['precio'] = int(i['precio']) #aqui se convierte el precio a entero
+            i['cantidad'] = int(i['cantidad']) #aqui se convierte la cantidad a entero
+            lista_inventario.append(i) #aqui se agrega a la lista de inventario
+    print("\n---Archivo cargado---")
+    
+    input("\n---Presione cualquier tecla para continuar---")
 
 def mostrar_inventario(lista_inventario):
     
@@ -219,7 +237,8 @@ def actualizar_producto(lista_inventario):
                             else:
                                 print("\ncantidad actualizada")
                                 break
-                    
+                        guardar_csv(lista_inventario)
+                        break
                 elif peticion == "no":
                     break
                         
@@ -245,6 +264,7 @@ def eliminar_producto(lista_inventario):
                 lista_inventario.remove(item)
                 encontrado = True
                 print(f"\n--- Producto '{item['nombre']}' eliminado ---")
+                guardar_csv(lista_inventario)
                 break
     
     if encontrado == False:

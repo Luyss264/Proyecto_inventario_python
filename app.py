@@ -7,7 +7,7 @@ lista_inventario = []
 productos = {}
 
 # Bucle principal para mantener el programa en ejecución
-while option != "7":
+while option != "9":
     #función para desplegar el menú
     menu()
     
@@ -38,9 +38,17 @@ while option != "7":
     elif option == "6":
         
         eliminar_producto(lista_inventario)
+        
+    elif option == "7":
+        
+        guardar_csv(lista_inventario)
+    
+    elif option == "8":
+        
+        cargar_csv(lista_inventario)
     
     # Finaliza la ejecución
-    elif option == "7":
+    elif option == "9":
         print("\nAdiós")
         
     # Manejo de entradas incorrectas
