@@ -45,7 +45,11 @@ while option != "9":
     
     elif option == "8":
         
-        cargar_csv(lista_inventario)
+        try:
+            cargar_csv(lista_inventario)
+        except FileNotFoundError:
+            print("\n[!] Error: No se encontró el archivo 'data.csv'. Primero debes guardar datos.")
+            input("\nPresione cualquier tecla para continuar...")
     
     # Finaliza la ejecución
     elif option == "9":

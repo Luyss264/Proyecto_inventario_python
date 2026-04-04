@@ -60,7 +60,4 @@ Para ejecutar este programa, es necesario contar con un entorno de Python 3.x in
    `python nombre_del_archivo.py`
 
 ---
-## Diagrama de flujo
 
-
-![alt text](image.png)
