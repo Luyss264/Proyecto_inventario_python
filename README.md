@@ -49,6 +49,8 @@ El sistema presenta un menú principal con las siguientes opciones:
 
 - **Total Inventario** – Calcula el valor monetario total del inventario (`precio × cantidad` por cada producto).
 - **Total productos registrados** – Muestra el número de unidades físicas totales y la cantidad de tipos de productos distintos.
+- **Producto con mayor stock** – Muestra el producto con la mayor cantidad de unidades registradas.
+- **Producto con mayor precio** – Muestra el producto con el precio unitario más alto.
 
 ---
 
@@ -70,5 +72,8 @@ nombre,precio,cantidad
 manzana,500,30
 leche,1200,15
 ```
+---
 
-> La carpeta `data/` debe existir antes de guardar por primera vez, o el programa lanzará un error.
+## Diagrama de flujo
+
+![Diagrama de flujo](diagrama_inventario.jpg)

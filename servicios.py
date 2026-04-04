@@ -141,7 +141,7 @@ def mostrar_estadisticas(lista_inventario):
     total_unidades_fisicas = 0
     
     # Menú de opciones de análisis
-    menuEstadisticas = "\n---Panel de estadisticas---\n1. Total Inventario\n2. Total productos registrados\n3. Producto con mayor precio"       
+    menuEstadisticas = "\n---Panel de estadisticas---\n1. Total Inventario\n2. Total productos registrados\n3. Producto con mayor stock\n4. Producto con mayor precio"       
     print(menuEstadisticas)
     opcionEstadisticas = input("Ingrese el número de la opción: ")
         
@@ -158,7 +158,30 @@ def mostrar_estadisticas(lista_inventario):
         print(f"\nTotal de unidades físicas: {total_unidades_fisicas}")
         print(f"Total de tipos de productos: {len(lista_inventario)}")
 
-   
+    # Opción 3: Producto con mayor stock
+    elif opcionEstadisticas == "3":
+        if len(lista_inventario) == 0:
+            print("\nNo hay productos en el inventario.")
+        else:
+            mayor_stock = lista_inventario[0]
+            for item in lista_inventario:
+                if item['cantidad'] > mayor_stock['cantidad']:
+                    mayor_stock = item
+            print(f"\nEl producto con mayor stock es: {mayor_stock['nombre']}")
+            print(f"Cantidad: {mayor_stock['cantidad']} | Precio: ${mayor_stock['precio']}")
+
+    # Opción 4: Producto con mayor precio
+    elif opcionEstadisticas == "4":
+        if len(lista_inventario) == 0:
+            print("\nNo hay productos en el inventario.")
+        else:
+            mayor_precio = lista_inventario[0]
+            for item in lista_inventario:
+                if item['precio'] > mayor_precio['precio']:
+                    mayor_precio = item
+            print(f"\nEl producto con mayor precio es: {mayor_precio['nombre']}")
+            print(f"Precio: ${mayor_precio['precio']} | Cantidad: {mayor_precio['cantidad']}")
+
     else:
         print("OPCIÓN NO VALIDA")
     
